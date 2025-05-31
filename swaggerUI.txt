@@ -1,0 +1,27 @@
+What should you see at http://localhost:8000/docs#/
+The FastAPI Swagger UI should load.
+You should see a list of all your API endpoints, grouped by tags or path.
+You should be able to expand each endpoint, see the request/response schema, and try out the endpoints directly from the browser.
+How to verify everything is okay
+Open your browser and go to:
+http://localhost:8000/docs#/
+Check for:
+The page loads without errors.
+The title is "FastAPI - Swagger UI".
+All your endpoints (e.g., /api/files, /api/file/{filename}, /api/drafts, /api/ai/assist, etc.) are listed.
+You can expand endpoints and see their details.
+Try out an endpoint:
+For example, try the GET / or GET /api/files endpoint.
+Click "Try it out", then "Execute".
+You should get a valid response (e.g., a JSON object).
+If you see any issues
+If the page does not load, make sure your server is running (uvicorn main:app --reload).
+If you see errors in the Swagger UI, check your FastAPI logs for import or runtime errors.
+If endpoints are missing, make sure they are defined in your main.py and there are no import errors.
+If you describe or screenshot what you see, I can help you diagnose any issues!
+If everything loads and endpoints work, then your FastAPI backend is set up correctly.
+
+
+
+
+Frontend calls backend APIs via fetch

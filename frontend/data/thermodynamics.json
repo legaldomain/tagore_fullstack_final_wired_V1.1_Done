@@ -1,0 +1,16 @@
+{
+  "concepts": [
+    {
+      "title": "First Law of Thermodynamics",
+      "description": "Energy cannot be created or destroyed, only transformed from one form to another. This principle of energy conservation is fundamental to understanding how systems exchange energy with their surroundings through heat and work. The mathematical expression \u0394U = Q - W represents this law, where \u0394U is the change in internal energy, Q is heat added to the system, and W is work done by the system."
+    },
+    {
+      "title": "Second Law of Thermodynamics",
+      "description": "The entropy of an isolated system always increases. Heat flows spontaneously from hot to cold objects, and the efficiency of heat engines is limited."
+    },
+    {
+      "title": "Third Law of Thermodynamics",
+      "description": "As temperature approaches absolute zero, entropy approaches a constant minimum. A perfect crystal at absolute zero has zero entropy."
+    }
+  ]
+}

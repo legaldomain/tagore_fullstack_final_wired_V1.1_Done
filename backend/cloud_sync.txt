@@ -1,0 +1,13 @@
+we have implemented the cloud sync functionality, here's what you need to do to get it working:
+1.First, you'll need to set up Google Drive API credentials:
+Go to the Google Cloud Console (https://console.cloud.google.com)
+Create a new project or select an existing one
+Enable the Google Drive API
+Create OAuth 2.0 credentials
+Download the credentials and save them as credentials.json in your backend directory
+2.Install the required dependencies:
+3.The cloud sync functionality is now integrated into your application. Here's what you can do:
+Connect to Google Drive using the "Connect Google Drive" button in the cloud sync settings
+Toggle cloud sync on/off using the switch
+Files will be automatically synced to Google Drive when sync is enabled
+You can manually upload files to Google Drive using the upload endpoin
