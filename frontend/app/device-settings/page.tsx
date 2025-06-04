@@ -210,7 +210,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="language">Language</Label>
                     <Select value={language} onValueChange={setLanguage}>
-                      <SelectTrigger id="language">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select language" />
                       </SelectTrigger>
                       <SelectContent>
@@ -226,7 +226,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="timezone">Timezone</Label>
                     <Select value={timezone} onValueChange={setTimezone}>
-                      <SelectTrigger id="timezone">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select timezone" />
                       </SelectTrigger>
                       <SelectContent>
@@ -258,7 +258,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="refresh-rate">E Ink Refresh Rate</Label>
                     <Select value={refreshRate} onValueChange={setRefreshRate}>
-                      <SelectTrigger id="refresh-rate">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select refresh rate" />
                       </SelectTrigger>
                       <SelectContent>
@@ -273,7 +273,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="font-family">Font Type</Label>
                     <Select value={fontFamily} onValueChange={setFontFamily}>
-                      <SelectTrigger id="font-family">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select font type" />
                       </SelectTrigger>
                       <SelectContent>
@@ -288,7 +288,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="font-size">Font Size</Label>
                     <Select value={fontSize} onValueChange={setFontSize}>
-                      <SelectTrigger id="font-size">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select font size" />
                       </SelectTrigger>
                       <SelectContent>
@@ -332,13 +332,13 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="default-mode">Default Mode on Boot</Label>
                     <Select value={defaultMode} onValueChange={setDefaultMode}>
-                      <SelectTrigger id="default-mode">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select default mode" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="novel">Novel Mode</SelectItem>
-                        <SelectItem value="note">Note Mode</SelectItem>
-                        <SelectItem value="distraction-free">Distraction-Free Mode</SelectItem>
+                        <SelectItem value="novel">Novel</SelectItem>
+                        <SelectItem value="note">Note</SelectItem>
+                        <SelectItem value="journal">Journal</SelectItem>
                         <SelectItem value="last-used">Last Used Mode</SelectItem>
                       </SelectContent>
                     </Select>
@@ -347,7 +347,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="autosave">Autosave Interval</Label>
                     <Select value={autosaveInterval} onValueChange={setAutosaveInterval}>
-                      <SelectTrigger id="autosave">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select autosave interval" />
                       </SelectTrigger>
                       <SelectContent>
@@ -371,7 +371,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="margins">Page Margins</Label>
                     <Select value={margins} onValueChange={setMargins}>
-                      <SelectTrigger id="margins">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select page margins" />
                       </SelectTrigger>
                       <SelectContent>
@@ -386,7 +386,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="backup">Backup Location</Label>
                     <Select value={backupLocation} onValueChange={setBackupLocation}>
-                      <SelectTrigger id="backup">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select backup location" />
                       </SelectTrigger>
                       <SelectContent>
@@ -439,7 +439,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="ai-tone">AI Tone</Label>
                     <Select value={aiTone} onValueChange={setAiTone}>
-                      <SelectTrigger id="ai-tone">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select AI tone" />
                       </SelectTrigger>
                       <SelectContent>
@@ -454,7 +454,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="summarization">Summarization Length</Label>
                     <Select value={summarizationLength} onValueChange={setSummarizationLength}>
-                      <SelectTrigger id="summarization">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select summarization length" />
                       </SelectTrigger>
                       <SelectContent>
@@ -512,7 +512,7 @@ export default function DeviceSettingsScreen() {
                     <div className="space-y-2">
                       <Label htmlFor="auto-lock-time">Auto-Lock After</Label>
                       <Select value={autoLockTime} onValueChange={setAutoLockTime}>
-                        <SelectTrigger id="auto-lock-time">
+                        <SelectTrigger>
                           <SelectValue placeholder="Select time" />
                         </SelectTrigger>
                         <SelectContent>
@@ -543,7 +543,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="export-format">Default Export Format</Label>
                     <Select value={exportFormat} onValueChange={setExportFormat}>
-                      <SelectTrigger id="export-format">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select export format" />
                       </SelectTrigger>
                       <SelectContent>
@@ -559,7 +559,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="export-location">Export Location</Label>
                     <Select value={exportLocation} onValueChange={setExportLocation}>
-                      <SelectTrigger id="export-location">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select export location" />
                       </SelectTrigger>
                       <SelectContent>
@@ -641,7 +641,7 @@ export default function DeviceSettingsScreen() {
                   <div className="space-y-2">
                     <Label htmlFor="keyboard-layout">Keyboard Layout</Label>
                     <Select value={keyboardLayout} onValueChange={setKeyboardLayout}>
-                      <SelectTrigger id="keyboard-layout">
+                      <SelectTrigger>
                         <SelectValue placeholder="Select keyboard layout" />
                       </SelectTrigger>
                       <SelectContent>
@@ -694,7 +694,6 @@ export default function DeviceSettingsScreen() {
                           Available Networks
                         </Label>
                         <Select
-                          id="network"
                           value={selectedNetwork}
                           onValueChange={setSelectedNetwork}
                         >

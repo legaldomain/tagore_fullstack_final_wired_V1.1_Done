@@ -26,7 +26,7 @@ import UserIcon from "@/components/ui/user-icon";
 const modes = [
   {
     id: "novel",
-    name: "Novel Mode",
+    name: "Novel",
     path: "/novel",
     icon: <BookOpen className="h-10 w-10 text-gray-700" />,
     description: "For writing long-form fiction with chapter management and creative tools.",
@@ -37,7 +37,7 @@ const modes = [
   },
   {
     id: "note",
-    name: "Note Mode",
+    name: "Note",
     path: "/note",
     icon: <FileText className="h-10 w-10 text-gray-700" />,
     description: "For academic notes with mathematical symbols and study tools.",
@@ -47,9 +47,9 @@ const modes = [
     color: "bg-gray-50",
   },
   {
-    id: "distraction-free",
-    name: "Distraction-Free Mode",
-    path: "/distraction-free",
+    id: "journal",
+    name: "Journal",
+    path: "/journal",
     icon: <Minimize2 className="h-10 w-10 text-gray-700" />,
     description: "Minimal interface for focused writing without distractions.",
     features: ["Hidden controls", "Focus timer", "Minimal UI"],
@@ -177,7 +177,7 @@ export default function HomeScreen() {
         {/* Main Content */}
         <div className="flex-1 px-8 py-6">
           <div className="text-center mb-12">
-            <h1 className="text-3xl font-mono font-bold text-gray-900 border-b border-gray-400 inline-block pb-2">Choose Your Writing Mode</h1>
+            <h1 className="text-3xl font-mono font-bold text-gray-900 border-b border-gray-400 inline-block pb-2">What do you want to write?</h1>
             <p className="mt-4 text-sm font-mono text-gray-700">"The art of writing is the art of discovering what you believe."</p>
           </div>
 

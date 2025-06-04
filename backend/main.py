@@ -235,8 +235,8 @@ def download_file(filename: str):
     path = os.path.join(UPLOAD_DIR, filename)
     return FileResponse(path, filename=filename)
 
-@app.post("/api/distraction-free/save")
-async def save_distraction_free(request: Request):
+@app.post("/api/journal/save")
+async def save_journal(request: Request):
     data = await request.json()
     filename = data.get("filename")
     content = data.get("content")
@@ -360,3 +360,70 @@ async def load_novel_content(filename: str):
     except Exception as e:
         print(f"Error in load_novel_content: {str(e)}")  # Debug log
         raise HTTPException(status_code=500, detail=f"Failed to load file: {str(e)}")
+
+@app.get("/api/journal/{day}")
+def get_journal_entries(day: str):
+    try:
+        # Create directory for the day if it doesn't exist
+        day_dir = os.path.join(UPLOAD_DIR, day.lower())
+        os.makedirs(day_dir, exist_ok=True)
+        
+        # Get all entries for the day
+        entries = []
+        if os.path.exists(day_dir):
+            for filename in os.listdir(day_dir):
+                if filename.endswith('.txt'):
+                    with open(os.path.join(day_dir, filename), 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        entry_id = filename.replace('.txt', '')
+                        entries.append({
+                            'id': entry_id,
+                            'title': f'Entry {len(entries) + 1}',
+                            'content': content,
+                            'date': os.path.getmtime(os.path.join(day_dir, filename))
+                        })
+        
+        return {"entries": entries}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to load journal entries: {str(e)}")
+
+@app.post("/api/journal/save")
+async def save_journal_entry(request: Request):
+    data = await request.json()
+    filename = data.get("filename")
+    content = data.get("content")
+    
+    if not filename or content is None:
+        raise HTTPException(status_code=400, detail="Filename and content are required")
+    
+    try:
+        # Ensure the directory exists
+        directory = os.path.dirname(os.path.join(UPLOAD_DIR, filename))
+        os.makedirs(directory, exist_ok=True)
+        
+        # Save the file
+        file_path = os.path.join(UPLOAD_DIR, filename)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        
+        return {"status": "saved", "filename": filename}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save journal entry: {str(e)}")
+
+@app.delete("/api/journal/delete")
+async def delete_journal_entry(request: Request):
+    data = await request.json()
+    filename = data.get("filename")
+    
+    if not filename:
+        raise HTTPException(status_code=400, detail="Filename is required")
+    
+    try:
+        file_path = os.path.join(UPLOAD_DIR, filename)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            return {"status": "deleted"}
+        else:
+            raise HTTPException(status_code=404, detail="File not found")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to delete journal entry: {str(e)}")

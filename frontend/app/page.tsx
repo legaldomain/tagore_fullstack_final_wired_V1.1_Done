@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 
 export default function Home() {
   const [selectedIndex, setSelectedIndex] = useState(0)
-  const modes = ["Novel Mode", "Note Mode", "Distraction-Free Mode"] // Example modes
+  const modes = ["Novel Mode", "Note Mode", "Journal Mode"] // Example modes
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
