@@ -6,6 +6,7 @@ import { Loader2, Download } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
+import PremiumSidebar from '@/components/PremiumSidebar';
 
 export default function NovelPage() {
   const [text, setText] = useState('');
@@ -202,6 +203,7 @@ export default function NovelPage() {
           )}
         </div>
       </div>
+      <PremiumSidebar />
     </div>
   );
 }

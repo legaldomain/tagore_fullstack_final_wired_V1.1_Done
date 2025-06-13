@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Loader2, Save, FileUp } from 'lucide-react';
 import { toast } from '@/components/ui/use-toast';
 import { Switch } from '@/components/ui/switch';
+import PremiumSidebar from '@/components/PremiumSidebar';
 
 interface Note {
   filename: string;
@@ -229,7 +230,7 @@ export default function NotePage() {
           )}
         </div>
       </div>
-
+      <PremiumSidebar />
       {showExporter && currentNote && (
         <NoteExporter
           title={currentNote.filename.split('/').pop()?.replace('.txt', '') || ''}
