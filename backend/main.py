@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, Body
 from fastapi.middleware.cors import CORSMiddleware
 from file_manager import FileManager
 from draft_tracker import DraftTracker
@@ -427,3 +427,33 @@ async def delete_journal_entry(request: Request):
             raise HTTPException(status_code=404, detail="File not found")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to delete journal entry: {str(e)}")
+
+@app.get("/api/novel/chapters")
+async def get_novel_chapters():
+    try:
+        # Get all .txt files from the documents folder
+        files = [f for f in os.listdir(UPLOAD_DIR) if f.endswith('.txt')]
+        # Sort files by creation time
+        files.sort(key=lambda x: os.path.getctime(os.path.join(UPLOAD_DIR, x)), reverse=True)
+        return {"chapters": files}
+    except Exception as e:
+        print(f"Error getting chapters: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to get chapters: {str(e)}")
+
+@app.post("/api/file/rename")
+async def rename_file(oldName: str = Body(...), newName: str = Body(...)):
+    try:
+        old_path = os.path.join(UPLOAD_DIR, oldName)
+        new_path = os.path.join(UPLOAD_DIR, newName)
+        
+        if not os.path.exists(old_path):
+            raise HTTPException(status_code=404, detail="File not found")
+            
+        if os.path.exists(new_path):
+            raise HTTPException(status_code=400, detail="A file with the new name already exists")
+            
+        os.rename(old_path, new_path)
+        return {"status": "success", "message": "File renamed successfully"}
+    except Exception as e:
+        print(f"Error renaming file: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to rename file: {str(e)}")

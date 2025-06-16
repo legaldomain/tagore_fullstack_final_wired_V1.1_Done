@@ -34,11 +34,16 @@ export default function NovelPage() {
   const loadChapter = async () => {
     try {
       setLoading(true);
-      const filename = `${currentChapter}.txt`;
+      const filename = currentChapter;
       console.log('Loading file:', filename);
       
       const res = await fetch(`http://localhost:8000/api/file/${encodeURIComponent(filename)}`);
       if (!res.ok) {
+        if (res.status === 404) {
+          setText('');
+          setLastSavedText('');
+          return;
+        }
         throw new Error('Failed to load chapter');
       }
       
@@ -110,7 +115,7 @@ export default function NovelPage() {
 
     try {
       setSaving(true);
-      const filename = `${currentChapter}.txt`;
+      const filename = currentChapter;
       console.log('Saving file:', filename);
       console.log('Content length:', text.length);
       
