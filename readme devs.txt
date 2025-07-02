@@ -3,6 +3,7 @@ cd backend
 pip install -r requirements.txt
 # uvicorn is the hosting server
 uvicorn main:app -- reload
+python -m uvicorn main:app --reload 
 # Visit http://localhost:8000/docs for API docs.
 
 
