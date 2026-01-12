@@ -5,58 +5,28 @@ import React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import {
-  BookOpen,
-  FileText,
-  Minimize2,
   Clock,
   HistoryIcon,
   Sliders,
-  Star,
-  ChevronRight,
   User,
   Bell,
   HelpCircle,
   Settings,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import UserIcon from "@/components/ui/user-icon";
 
 const modes = [
-  {
-    id: "novel",
-    name: "Novel",
-    path: "/novel",
-    icon: <BookOpen className="h-10 w-10 text-gray-700" />,
-    description: "For writing long-form fiction with chapter management and creative tools.",
-    features: ["Chapter organization", "AI writing assistance", "Character development"],
-    lastUsed: "2 hours ago",
-    isFavorite: true,
-    color: "bg-gray-50",
-  },
-  {
-    id: "note",
-    name: "Note",
-    path: "/note",
-    icon: <FileText className="h-10 w-10 text-gray-700" />,
-    description: "For academic notes with mathematical symbols and study tools.",
-    features: ["Symbol insertion", "Formula support", "AI study assistance"],
-    lastUsed: "Yesterday",
-    isFavorite: true,
-    color: "bg-gray-50",
-  },
-  {
-    id: "journal",
-    name: "Journal",
-    path: "/journal",
-    icon: <Minimize2 className="h-10 w-10 text-gray-700" />,
-    description: "Minimal interface for focused writing without distractions.",
-    features: ["Hidden controls", "Focus timer", "Minimal UI"],
-    lastUsed: "3 days ago",
-    isFavorite: false,
-    color: "bg-gray-50",
-  },
+  { id: "novel", label: "Novel", path: "/novel" },
+  { id: "note", label: "Note", path: "/note" },
+  { id: "journal", label: "Journal", path: "/journal" },
 ]
 
 function CurrentClock() {
@@ -92,54 +62,8 @@ function CurrentClock() {
 }
 
 export default function HomeScreen() {
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [favorites, setFavorites] = useState<string[]>(["novel", "note"])
+  const [selectedMode, setSelectedMode] = useState<string | undefined>(undefined)
   const router = useRouter()
-
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.key === "ArrowLeft") {
-        e.preventDefault();
-        router.back(); // Navigate back to the previous page
-      }
-
-      const cols = 3; // Adjust based on the grid layout
-      const rows = Math.ceil(modes.length / cols);
-      const currentRow = Math.floor(selectedIndex / cols);
-      const currentCol = selectedIndex % cols;
-
-      switch (e.key) {
-        case "ArrowUp":
-          if (currentRow > 0) {
-            setSelectedIndex((prev) => prev - cols);
-          }
-          break;
-        case "ArrowDown":
-          if (currentRow < rows - 1 && selectedIndex + cols < modes.length) {
-            setSelectedIndex((prev) => prev + cols);
-          }
-          break;
-        case "ArrowLeft":
-          if (currentCol > 0) {
-            setSelectedIndex((prev) => prev - 1);
-          }
-          break;
-        case "ArrowRight":
-          if (currentCol < cols - 1 && selectedIndex + 1 < modes.length) {
-            setSelectedIndex((prev) => prev + 1);
-          }
-          break;
-        case "Enter":
-          router.push(modes[selectedIndex].path);
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [selectedIndex, router]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -177,40 +101,59 @@ export default function HomeScreen() {
         {/* Main Content */}
         <div className="flex-1 px-8 py-6">
           <div className="text-center mb-12">
-            <h1 className="text-3xl font-mono font-bold text-gray-900 border-b border-gray-400 inline-block pb-2">What do you want to write?</h1>
+            <h1 className="text-3xl font-mono font-bold text-gray-900 border-b border-gray-400 inline-block pb-2">
+              What do you want to write?
+            </h1>
             <p className="mt-4 text-sm font-mono text-gray-700">"The art of writing is the art of discovering what you believe."</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {modes.map((mode, index) => (
-              <div
-                key={mode.id}
-                className={`relative flex flex-col items-center rounded border border-gray-400 bg-gray-50 p-6 shadow-sm transition-transform transform ${
-                  index === selectedIndex ? "scale-105 ring-1 ring-gray-500" : "hover:scale-105"
-                }`}
-                tabIndex={0}
-                onClick={() => router.push(mode.path)}
-              >
-                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded bg-gray-200">
-                  {mode.icon}
+          <div className="flex w-full items-center justify-center">
+            <div className="w-full max-w-xl rounded border border-gray-300 bg-white px-10 py-12 shadow-sm">
+              <h2 className="mb-6 text-center text-2xl font-mono font-bold text-gray-900">
+                Start Writing
+              </h2>
+
+              <div className="space-y-6">
+                <div className="flex flex-col items-center space-y-3">
+                  <Select
+                    value={selectedMode}
+                    onValueChange={(value) => {
+                      setSelectedMode(value)
+                      const mode = modes.find((m) => m.id === value)
+                      if (mode) {
+                        router.push(mode.path)
+                      }
+                    }}
+                  >
+                    <SelectTrigger className="w-64 justify-between rounded border border-gray-400 bg-gray-50 font-mono">
+                      <SelectValue placeholder="Choose what to write" />
+                    </SelectTrigger>
+                    <SelectContent className="font-mono">
+                      {modes.map((mode) => (
+                        <SelectItem key={mode.id} value={mode.id}>
+                          {mode.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-                <h2 className="text-lg font-bold text-gray-900">{mode.name}</h2>
-                <p className="mt-2 text-sm text-gray-700 text-center">{mode.description}</p>
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                  {mode.features.map((feature, i) => (
-                    <span key={i} className="rounded border border-gray-400 px-3 py-1 text-xs text-gray-800">
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-                <button
-                  className="mt-6 rounded border border-gray-400 px-6 py-2 text-sm font-bold text-gray-800 hover:bg-gray-200"
-                  onClick={() => router.push(mode.path)}
-                >
-                  Select Mode
-                </button>
               </div>
-            ))}
+
+              <div className="mt-10 flex flex-wrap justify-center gap-3 text-xs font-mono text-gray-700">
+                <span className="rounded-full border border-gray-300 px-4 py-1">
+                  Chapter organization
+                </span>
+                <span className="rounded-full border border-gray-300 px-4 py-1">
+                  AI writing assistance
+                </span>
+                <span className="rounded-full border border-gray-300 px-4 py-1">
+                  Character arcs
+                </span>
+                <span className="rounded-full border border-gray-300 px-4 py-1">
+                  AI study assistance
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
